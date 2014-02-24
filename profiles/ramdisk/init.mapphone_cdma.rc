@@ -68,7 +68,7 @@ on post-fs
     mount yaffs2 mtd@cdrom /cdrom ro
 
 # Overclock after 2ndboot.
-    exec /system/bootmenu/script/overclock.sh
+    #exec /system/bootmenu/script/overclock.sh
 
 # Busybox
     mkdir /data/local/tmp 0777 system shell
