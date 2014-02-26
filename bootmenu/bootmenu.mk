@@ -54,11 +54,13 @@ PRODUCT_COPY_FILES += \
 	${bm_device}/bootmenu/modules/symsearch.ko:system/bootmenu/modules/symsearch.ko \
 	${bm_device}/bootmenu/modules/jbd2.ko:system/bootmenu/modules/jbd2.ko \
 	${bm_device}/bootmenu/modules/ext4.ko:system/bootmenu/modules/ext4.ko \
+	${bm_device}/bootmenu/modules/cpcap-battery.ko:system/bootmenu/modules/cpcap-battery.ko \
 
 # prebuilt binaries (to clean...)
 PRODUCT_COPY_FILES += \
 	${bm_device}/bootmenu/binary/adbd:system/bootmenu/binary/adbd \
 	${bm_device}/bootmenu/binary/logwrapper.bin:system/bootmenu/binary/logwrapper.bin \
+	${bm_device}/bootmenu/binary/logwrapper:system/bin/logwrapper \
 	${bm_device}/bootmenu/binary/logwrapper.bin:system/bin/logwrapper.bin \
 
 # images
@@ -72,7 +74,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	${bm_device}/profiles/2nd-boot/hboot_recovery.cfg:system/bootmenu/2nd-boot/hboot_recovery.cfg \
 	$(bm_device)/temp/busybox:system/bootmenu/binary/busybox \
-	$(bm_device)/temp/bootmenu:system/bin/bootmenu \
 	$(bm_device)/twrp.fstab:recovery/root/etc/twrp.fstab \
 	$(OUT)/ramdisk-recovery.img:system/bootmenu/2nd-boot/ramdisk-recovery \
 	${bm_device}/profiles/2nd-boot/zImage-recovery:system/bootmenu/2nd-boot/zImage-recovery \

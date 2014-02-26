@@ -1,0 +1,5 @@
+#!/system/bin/sh
+#
+# Remove battd stats
+
+rm -rf /data/battd

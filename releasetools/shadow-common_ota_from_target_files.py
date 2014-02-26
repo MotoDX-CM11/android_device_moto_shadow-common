@@ -2,7 +2,6 @@ def InstallEnd_SetBootmenuPermissions(self, *args, **kwargs):
   self.script.SetPermissionsRecursive("/system/bootmenu/config", 0, 0, 0755, 0664, None, None)
   self.script.SetPermissionsRecursive("/system/bootmenu/binary", 0, 0, 0755, 0755, None, None)
   self.script.SetPermissionsRecursive("/system/bootmenu/script", 0, 0, 0755, 0755, None, None)
-  self.script.SetPermissionsRecursive("/system/bootmenu/recovery/sbin", 0, 0, 0755, 0755, None, None)
 
 def FullOTA_InstallBegin(self, *args, **kwargs):
   self.script.AppendExtra('run_program("/sbin/tune2fs", "-O has_journal /dev/block/mmcblk1p22");')
@@ -15,6 +14,8 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
   self.script.Print("Wiping dalvik-cache...")
   self.script.Mount("/data")
   self.script.AppendExtra('delete_recursive("/data/dalvik-cache");')
+  self.script.Print("Wiping battd stats...")
+  self.script.AppendExtra('delete_recursive("/data/battd");')
 
 # Bootmenu
   InstallEnd_SetBootmenuPermissions(self, args, kwargs)
@@ -26,7 +27,6 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
 
   symlinks = []
 
-  symlinks.append(("/system/bin/bootmenu", "/system/bin/logwrapper"))
   symlinks.append(("indeterminate.png", "/system/bootmenu/images/indeterminate1.png"))
   symlinks.append(("indeterminate.png", "/system/bootmenu/images/indeterminate2.png"))
   symlinks.append(("indeterminate.png", "/system/bootmenu/images/indeterminate3.png"))

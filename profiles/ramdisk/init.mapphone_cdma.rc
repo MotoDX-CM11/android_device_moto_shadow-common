@@ -27,14 +27,14 @@ on fs
 # Mount mmc partitions
 
     mount_all ./fstab.mapphone_cdma
-    #swapon_all /fstab.mapphone_cdma
+    #swapon_all /fstab.mapphone_cdma # For enable zRam
 
     mkdir /pds 0775 system system
     exec /system/bootmenu/script/pdsbackup.sh
 
     symlink /dev/block/mmcblk1p21 /dev/block/system
     symlink /dev/block/mmcblk1p22 /dev/block/cache
-	symlink /dev/block/mmcblk1p23 /dev/block/preinstall
+    symlink /dev/block/mmcblk1p23 /dev/block/preinstall
     symlink /dev/block/mmcblk1p24 /dev/block/userdata
 
 on post-fs
@@ -54,8 +54,10 @@ on post-fs
 # Load WiFi drivers
     insmod /system/lib/modules/cfg80211.ko
     insmod /system/lib/modules/mac80211.ko
-    insmod /system/lib/modules/wlcore.ko
+    insmod /system/lib/modules/cfg80211.ko
+    insmod /system/lib/modules/mac80211.ko
     insmod /system/lib/modules/wl12xx.ko
+#   insmod /system/lib/modules/wlcore.ko #For Kernel backports
 
 # Backward compatibility
     symlink /dev/ttyGS0 /dev/acm0
@@ -70,12 +72,6 @@ on post-fs
 # Overclock after 2ndboot.
     exec /system/bootmenu/script/overclock.sh
 
-# Busybox
-    mkdir /data/local/tmp 0777 system shell
-    export HISTFILE /data/local/tmp/.ash_history
-    export HISTFILESIZE 1000
-    export ENV /system/etc/profile
-
 # Mount tmp, we dont have swap, use ramfs which can grow if required
     mkdir /tmp
     mount ramfs ramfs /tmp size=512k relatime
@@ -85,9 +81,6 @@ on post-fs
 # Configure kernel options
     # Disable automatic power control for OHCI USB IPC Temporarily
     write /sys/devices/platform/ohci.0/usb1/1-3/power/level auto
-    # Disable a system-wide task dump on OOM in default
-    write /proc/sys/vm/oom_dump_tasks 0
-    write /proc/sys/fs/suid_dumpable 2
     # Power Management
     write /sys/power/sr_vdd1_autocomp 1
     write /sys/power/sr_vdd2_autocomp 1
@@ -109,9 +102,6 @@ on post-fs
     # DSS - disable tearing elimination
     write /sys/devices/omapdss/display0/tear_elim 0  
 
-# 4.4 requires this
-    chmod 0644 /proc/cmdline
-
 on post-fs-data
 
     mount rootfs rootfs / ro remount
@@ -131,6 +121,7 @@ on post-fs-data
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     mkdir /data/local/hwui.deny
+    mkdir /data/misc/hcid 0770 bluetooth bluetooth
 
     chown system shell /pds/public
     chown root system /data/tmp/battd
@@ -144,10 +135,6 @@ on post-fs-data
     chmod 0775 /pds/public
     chmod 0770 /data/tmp/battd
     chmod 0775 /data/local/hwui.deny
-
-    mkdir /data/misc/hcid 0770 bluetooth bluetooth
-
-
 
     setprop vold.post_fs_data_done 1
 
@@ -194,12 +181,6 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost
 
-    # Interactive Tunables
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/target_loads
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "95 600000:50"
-    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "20000 600000:40000"
-
     # Charge only mode services.
     exec /system/bin/mot_boot_mode
     class_start charger
@@ -233,12 +214,6 @@ service battd /system/bin/battd
     socket battdsock stream 660 root system
     user root
     group system 9001
-    oneshot
-
-service secclkd /system/bin/secclkd
-    class main
-    user system
-    group system radio
     oneshot
 
 # Ecompass daemon

@@ -9,6 +9,7 @@
 #Insmod ext4 modules 
 /system/bootmenu/binary/busybox insmod /system/bootmenu/modules/jbd2.ko
 /system/bootmenu/binary/busybox insmod /system/bootmenu/modules/ext4.ko
+/system/bootmenu/binary/busybox insmod /system/bootmenu/modules/cpcap-battery.ko
 
 source /system/bootmenu/script/_config.sh
 
@@ -58,11 +59,6 @@ chmod 4750 /sbin/adbd
 
 ## missing system files
 [ ! -c /dev/tty0 ]  && ln -s /dev/tty /dev/tty0
-
-## /default.prop replace.. (TODO: check if that works)
-rm -f /default.prop
-cp -f /system/bootmenu/config/default.prop /default.prop
-chmod 640 /default.prop
 
 ## mount cache
 mkdir -p /cache
