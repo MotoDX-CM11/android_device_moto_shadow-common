@@ -47,7 +47,7 @@ deviceCardMatches(const char *device, const char *matchCard)
     } else {
         const char *card = (const char *) caps.card;
 
-        LOGD("device %s card is %s\n", device, card);
+        ALOGD("device %s card is %s\n", device, card);
         ret = strstr(card, matchCard) != NULL;
     }
 
@@ -68,10 +68,10 @@ openMotoInterface(const char *libName, const char *funcName)
         if (func != NULL) {
             interface = func();
         } else {
-            LOGE("Could not find library entry point!");
+            ALOGE("Could not find library entry point!");
         }
     } else {
-        LOGE("dlopen() error: %s\n", dlerror());
+        ALOGE("dlopen() error: %s\n", dlerror());
     }
 
     return interface;
@@ -90,7 +90,7 @@ setSocTorchMode(bool enable)
 
 sp<MotoCameraWrapper> MotoCameraWrapper::createInstance(int cameraId)
 {
-    LOGV("%s :", __func__);
+    ALOGV("%s :", __func__);
     if (singleton != NULL) {
         sp<MotoCameraWrapper> hardware = singleton.promote();
         if (hardware != NULL) {
@@ -127,23 +127,23 @@ sp<MotoCameraWrapper> MotoCameraWrapper::createInstance(int cameraId)
         case DROID2:
         case DROID2WE:
         case DROIDPRO:
-			LOGI("Detected DROID device\n");
+			ALOGI("Detected DROID device\n");
 			/* entry point of DROID driver is android::CameraHal::createInstance() */
             motoInterface = openMotoInterface("libcamera.so", "_ZN7android9CameraHal14createInstanceEv");
             break;
         case CAM_SOC:
-            LOGI("Detected SOC device\n");
+            ALOGI("Detected SOC device\n");
 	        /* entry point of SOC driver is android::CameraHalSocImpl::createInstance() */
 	        motoInterface = openMotoInterface("libsoccamera.so", "_ZN7android16CameraHalSocImpl14createInstanceEv");
             break;
 		case CAM_BAYER:
-            LOGI("Detected BAYER device\n");
+            ALOGI("Detected BAYER device\n");
 	        /* entry point of Bayer driver is android::CameraHal::createInstance() */
 	        motoInterface = openMotoInterface("libbayercamera.so", "_ZN7android9CameraHal14createInstanceEv");
             break;
         case UNKNOWN:
         default:
-			LOGE("Camera type detection failed");
+			ALOGE("Camera type detection failed");
             break;
     }
 
@@ -151,7 +151,7 @@ sp<MotoCameraWrapper> MotoCameraWrapper::createInstance(int cameraId)
         hardware = new MotoCameraWrapper(motoInterface, type);
         singleton = hardware;
     } else {
-        LOGE("Could not open hardware interface");
+        ALOGE("Could not open hardware interface");
     }
 
     return hardware;
@@ -295,7 +295,7 @@ MotoCameraWrapper::fixUpBrokenGpsLatitudeRef(const sp<IMemory>& dataPtr)
             if (memcmp(data + i, sLatitudeRefMarker, sizeof(sLatitudeRefMarker)) == 0) {
                 char *ref = (char *) (data + i + sizeof(sLatitudeRefMarker));
                 if ((*ref == 'W' || *ref == 'E') && *(ref + 1) == '\0') {
-                    LOGI("Found broken GPS latitude ref marker, offset %d, item %c",
+                    ALOGI("Found broken GPS latitude ref marker, offset %d, item %c",
                          i + sizeof(sLatitudeRefMarker), *ref);
                     *ref = (*ref == 'W') ? 'N' : 'S';
                 }
