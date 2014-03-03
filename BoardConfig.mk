@@ -102,7 +102,7 @@ BOARD_SYSTEM_DEVICE := /dev/block/mmcblk1p21
 BOARD_DATA_DEVICE   := /dev/block/mmcblk1p24
 
 # Recovery
-BOARD_HAS_NO_SELECT_BUTTON := false
+BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := device/moto/shadow-common/recovery.fstab
 RECOVERY_FSTAB_VERSION := 2
 TARGET_RECOVERY_INITRC := device/moto/shadow-common/profiles/ramdisk/init-recovery.rc
