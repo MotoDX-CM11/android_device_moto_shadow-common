@@ -17,6 +17,6 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#define BTM_DEF_LOCAL_NAME   "Motorola Defy"
+#define BTM_DEF_LOCAL_NAME   "Motorola Droid X"
 #define BTHC_USERIAL_READ_MEM_SIZE (1034)
 #endif
