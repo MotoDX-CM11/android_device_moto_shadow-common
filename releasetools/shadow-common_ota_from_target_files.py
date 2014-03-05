@@ -22,7 +22,6 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
 
   self.script.SetPermissionsRecursive("/system/etc/init.d", 0, 0, 0755, 0555, None, None)
   self.script.SetPermissionsRecursive("/system/addon.d", 0, 0, 0755, 0755, None, None)
-  self.script.SetPermissions("/system/etc/motorola/comm_drv/commdrv_fs.sh", 0, 0, 0755, None, None)
 
   symlinks = []
 
