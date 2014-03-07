@@ -26,6 +26,8 @@ on fs
 
 # Mount mmc partitions
 
+    mkdir /preinstall 0775 system system
+
     mount_all ./fstab.mapphone_cdma
     #swapon_all /fstab.mapphone_cdma # For enable zRam
 
