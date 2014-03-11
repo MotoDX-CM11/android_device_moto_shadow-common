@@ -27,6 +27,11 @@
 #include <hardware/hardware.h>
 #include <hardware/sensors.h>
 
+// gingerbread/ics compat
+#ifndef SENSOR_TYPE_AMBIENT_TEMPERATURE
+#define SENSOR_TYPE_AMBIENT_TEMPERATURE SENSOR_TYPE_TEMPERATURE
+#endif
+
 __BEGIN_DECLS
 
 /*****************************************************************************/
@@ -37,12 +42,13 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
-#define ID_A  (0)
-#define ID_M  (1)
-#define ID_O  (2)
-#define ID_P  (3)
-#define ID_L  (4)
-#define ID_T  (5)
+/*****************************************************************************/
+
+/*
+ * The Defy has two accelerometers in hardware (KXTF9 and AK8973). We use
+ * the KXTF9 one for higher precision.
+ */
+#define USE_KXTF9_ACCELEROMETER
 
 /*****************************************************************************/
 
@@ -56,15 +62,8 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 
 /*****************************************************************************/
 
-#define AKM_DEVICE_NAME     "/dev/akm8973_aot"
 #define CM_DEVICE_NAME      "/dev/sfh7743"
 #define LS_DEVICE_NAME      "/dev"
-#define KXTF9_DEVICE_NAME     "/dev/kxtf9"
-
-#define EVENT_TYPE_ACCEL_X          ABS_X
-#define EVENT_TYPE_ACCEL_Y          ABS_Y
-#define EVENT_TYPE_ACCEL_Z          ABS_Z
-#define EVENT_TYPE_ACCEL_STATUS     ABS_MISC
 
 #define EVENT_TYPE_YAW              ABS_RX
 #define EVENT_TYPE_PITCH            ABS_RY
@@ -81,30 +80,35 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 #define EVENT_TYPE_LIGHT            LED_MISC // led sensor 1
 #define EVENT_TYPE_LIGHT2           MSC_RAW  // led sensor 2
 
-// 1000 LSG = 1G
-#define LSG                         (1000.0f)
+#define KXTF9_DEVICE_NAME                  "/dev/kxtf9"
+#define KXTF9_DEFAULT_DELAY                (200 * 1000000)
 
+#define KXTF9_LSG                          (1000.0f)
+#define KXTF9_CONVERT_A                    (GRAVITY_EARTH / KXTF9_LSG)
+#define KXTF9_CONVERT_A_X                  (-KXTF9_CONVERT_A)
+#define KXTF9_CONVERT_A_Y                  (KXTF9_CONVERT_A)
+#define KXTF9_CONVERT_A_Z                  (-KXTF9_CONVERT_A)
 
-// conversion of acceleration data to SI units (m/s^2)
-#define CONVERT_A                   (GRAVITY_EARTH / LSG)
-#define CONVERT_A_X                 (CONVERT_A)
-#define CONVERT_A_Y                 (CONVERT_A)
-#define CONVERT_A_Z                 (CONVERT_A)
+#define AK8973_DEVICE_NAME                 "/dev/akm8973_aot"
+#define AK8973_DEFAULT_DELAY               (200 * 1000000)
 
-// conversion of magnetic data to uT units
-#define CONVERT_M                   (1.0f/16.0f)
-#define CONVERT_M_X                 (CONVERT_M)
-#define CONVERT_M_Y                 (-CONVERT_M)
-#define CONVERT_M_Z                 (-CONVERT_M)
+#define AK8973_LSG                         (1000.0f)
+#define AK8973_CONVERT_A                   (GRAVITY_EARTH / AK8973_LSG)
+#define AK8973_CONVERT_A_X                 (-AK8973_CONVERT_A)
+#define AK8973_CONVERT_A_Y                 (AK8973_CONVERT_A)
+#define AK8973_CONVERT_A_Z                 (-AK8973_CONVERT_A)
 
-#define CONVERT_O                   (1.0f/64.0f)
-#define CONVERT_O_Y                 (CONVERT_O)
-#define CONVERT_O_P                 (CONVERT_O)
-#define CONVERT_O_R                 (-CONVERT_O)
+#define AK8973_CONVERT_M                   (1.0f/16.0f)
+#define AK8973_CONVERT_M_X                 (AK8973_CONVERT_M)
+#define AK8973_CONVERT_M_Y                 (-AK8973_CONVERT_M)
+#define AK8973_CONVERT_M_Z                 (-AK8973_CONVERT_M)
 
-#define CONVERT_T                   (1.0f)
+#define AK8973_CONVERT_O                   (1.0f/64.0f)
+#define AK8973_CONVERT_O_A                 (AK8973_CONVERT_O)
+#define AK8973_CONVERT_O_P                 (AK8973_CONVERT_O)
+#define AK8973_CONVERT_O_R                 (-AK8973_CONVERT_O)
 
-#define SENSOR_STATE_MASK           (0x7FFF)
+#define AK8973_SENSOR_STATE_MASK           (0x3)
 
 /*****************************************************************************/
 
