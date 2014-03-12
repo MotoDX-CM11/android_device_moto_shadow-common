@@ -36,7 +36,7 @@ LightSensor::LightSensor()
       mHasPendingEvent(false)
 {
     mPendingEvent.version = sizeof(sensors_event_t);
-    mPendingEvent.sensor = ID_L;
+    mPendingEvent.sensor = SENSOR_TYPE_LIGHT;
     mPendingEvent.type = SENSOR_TYPE_LIGHT;
     memset(mPendingEvent.data, 0, sizeof(mPendingEvent.data));
 
