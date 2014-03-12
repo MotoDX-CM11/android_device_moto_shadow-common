@@ -81,7 +81,7 @@ static const struct sensor_t sSensorList[] = {
     { "SFH7743 Proximity sensor",
         "OSRAM Opto Semiconductors",
         1, SENSORS_HANDLE_BASE + SENSOR_TYPE_PROXIMITY, SENSOR_TYPE_PROXIMITY,
-        INT_MAX, INT_MAX, 0.045f, 0, 0, 0, { } },
+        6.0f, 6.0f, 0.5f, 0, 0, 0, { } },
 
     { "LM3530 Light sensor",
         "National Semiconductor",
