@@ -140,7 +140,7 @@ void SensorKXTF9::processEvent(int code, int value)
 
     switch (code) {
         case ABS_X:
-            mPendingEvent.acceleration.x = value * KXTF9_CONVERT_A_X;
+            mPendingEvent.acceleration.x = - (value * KXTF9_CONVERT_A_X);
             break;
         case ABS_Y:
             mPendingEvent.acceleration.y = value * KXTF9_CONVERT_A_Y;

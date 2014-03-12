@@ -91,7 +91,7 @@
 /dev/akm8973_dev          0660   compass    compass
 /dev/akm8973_aot          0660   compass    compass
 /dev/kxtf9                0660   compass    compass
-/dev/isl29030             0660   compass    compass
+/dev/sfh7743              0660   compass    compass
 /dev/ttyS0                0640   radio      radio
 # bluetooth uart
 /dev/ttyS1                0660   bluetooth  bluetooth
