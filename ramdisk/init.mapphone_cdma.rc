@@ -194,11 +194,6 @@ on property:sys.chargeonly.mode=1
     start battd
 
 
-service bp-ptc /system/bin/bp_ptc
-    class main
-    user root
-    group root
-
 service uim /system/bin/uim-sysfs
     class core
     user root
