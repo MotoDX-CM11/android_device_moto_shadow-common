@@ -1,12 +1,12 @@
-#ifndef ANDROID_HARDWARE_MOTO_CAMERA_WRAPPER_H
-#define ANDROID_HARDWARE_MOTO_CAMERA_WRAPPER_H
+#ifndef ANDROID_HARDWARE_SHADOW_CAMERA_WRAPPER_H
+#define ANDROID_HARDWARE_SHADOW_CAMERA_WRAPPER_H
 
 #include "CameraHardwareInterface.h"
 #include <utils/threads.h>
 
 namespace android {
 
-class MotoCameraWrapper : public CameraHardwareInterface {
+class ShadowCameraWrapper : public CameraHardwareInterface {
 public:
     virtual sp<IMemoryHeap> getPreviewHeap() const;
     virtual sp<IMemoryHeap> getRawHeap() const;
@@ -42,22 +42,17 @@ public:
                                     int32_t arg2);
     virtual void        release();
 
-    static    sp<MotoCameraWrapper> createInstance(int cameraId);
+    static    sp<ShadowCameraWrapper> createInstance(int cameraId);
 
 private:
     typedef enum {
-        UNKNOWN,
-        CAM_SOC,
-        CAM_BAYER,
-        DROIDX,
-        DROID2,
-        DROID2WE,
-        DROIDPRO
+        CAM_NULL,
+		CAM_OV8810
     } CameraType;
 
     class TorchEnableThread : public Thread {
         public:
-            TorchEnableThread(MotoCameraWrapper *hw) :
+            TorchEnableThread(ShadowCameraWrapper *hw) :
                 Thread(false), mHw(hw) { }
             void scheduleTorch() {
                 cancelAndWait();
@@ -70,26 +65,21 @@ private:
             virtual bool threadLoop() {
                 mStopLock.lock();
                 mStopCondition.waitRelative(mStopLock, 1000000000);
-                if (!exitPending()) {
-                    mHw->toggleTorchIfNeeded();
-                }
                 mStopLock.unlock();
                 return false;
             }
         private:
-            MotoCameraWrapper *mHw;
+            ShadowCameraWrapper *mHw;
             mutable Mutex mStopLock;
             mutable Condition mStopCondition;
     };
 
-    MotoCameraWrapper(sp<CameraHardwareInterface>& motoInterface, CameraType type);
-    virtual ~MotoCameraWrapper();
+    ShadowCameraWrapper(sp<CameraHardwareInterface>& motoInterface, CameraType type);
 
     static void notifyCb(int32_t msgType, int32_t ext1, int32_t ext2, void* user);
     static void dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* user);
     static void dataCbTimestamp(nsecs_t timestamp, int32_t msgType, const sp<IMemory>& dataPtr, void* user);
     void fixUpBrokenGpsLatitudeRef(const sp<IMemory>& dataPtr);
-    void toggleTorchIfNeeded();
 
     sp<CameraHardwareInterface> mMotoInterface;
     sp<TorchEnableThread> mTorchThread;
@@ -102,7 +92,7 @@ private:
     data_callback_timestamp mDataCbTimestamp;
     void *mCbUserData;
 
-    static wp<MotoCameraWrapper> singleton;
+    static wp<ShadowCameraWrapper> singleton;
 
 };
 
