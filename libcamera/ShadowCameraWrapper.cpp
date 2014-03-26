@@ -177,9 +177,9 @@ ShadowCameraWrapper::dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* u
     _this->mDataCb(msgType, dataPtr, user);
 
     if ((msgType == CAMERA_MSG_RAW_IMAGE || msgType == CAMERA_MSG_COMPRESSED_IMAGE)) {
-       if (_this->mTorchThread != NULL) {
-           _this->mTorchThread->scheduleTorch();
-       }
+        if (_this->mTorchThread != NULL) {
+            _this->mTorchThread->scheduleTorch();
+        }
     }
 }
 
@@ -373,7 +373,7 @@ ShadowCameraWrapper::setParameters(const CameraParameters& params)
        }
     }
     
-	mFlashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
+    mFlashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
 
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
     /* exposure-compensation comes multiplied in the -9...9 range, while
@@ -415,9 +415,10 @@ ShadowCameraWrapper::getParameters() const
     ret.set(CameraParameters::KEY_VIDEO_FRAME_FORMAT, CameraParameters::PIXEL_FORMAT_YUV422I);
     ret.set(CameraParameters::KEY_PREVIEW_FRAME_RATE, "24");
     ret.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(15000,30000),(15000,25000),(15000,20000),(15000,24000),(15000,15000)");
-	ret.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "15000,30000");
+    ret.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "15000,30000");
     ret.set(CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "176x144,320x240,352x288,640x480,848x480,1280x720");
-	ret.set(CameraParameters::KEY_SUPPORTED_PICTURE_SIZES, "640x480,1280x960,1600x1200,2048x1536,2592x1936,3264x1840,3264x2448");
+    ret.set(CameraParameters::KEY_SUPPORTED_PICTURE_SIZES, "640x480,1280x960,1600x1200,2048x1536,2592x1936,3264x1840,3264x2448");
+    ret.set(CameraParameters::KEY_PICTURE_SIZE, "3264x2448");
     ret.set(CameraParameters::KEY_SUPPORTED_VIDEO_SIZES, "");
 
     ret.set("cam-mode", mVideoMode ? "1" : "0");
