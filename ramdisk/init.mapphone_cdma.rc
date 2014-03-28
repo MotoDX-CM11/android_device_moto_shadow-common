@@ -22,6 +22,25 @@ on init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
+    # Temporary fix permissions for gb kernel
+    chown root system /dev/cpcap
+    chown root system /dev/cpcap_batt
+    chown root system /dev/cpcap_mot_rtc
+    chown root system /dev/cpcap_uc
+    chown root system /dev/i2c-1
+    chown root system /dev/i2c-2
+    chown root root /dev/smodule
+    chown root system /dev/ttyGS0
+
+    chmod 0660 /dev/cpcap
+    chmod 0660 /dev/cpcap_batt
+    chmod 0660 /dev/cpcap_mot_rtc
+    chmod 0660 /dev/cpcap_uc
+    chmod 0660 /dev/i2c-1
+    chmod 0660 /dev/i2c-2
+    chmod 0660 /dev/smodule
+    chmod 0666 /dev/ttyGS0
+
 on fs
 
 # Mount mmc partitions
@@ -47,6 +66,10 @@ on post-fs
     insmod /system/lib/modules/nls_utf8.ko
     insmod /system/lib/modules/cifs.ko
 
+    insmod /system/lib/modules/netmux.ko
+    insmod /system/lib/modules/netmux_linkdriver.ko
+    insmod /system/lib/modules/modem_pm_driver.ko
+
 # Load Bluetooth drivers 
 #    insmod /system/lib/modules/bluetooth.ko
 #    insmod /system/lib/modules/hci_uart.ko
@@ -62,6 +85,7 @@ on post-fs
 #   insmod /system/lib/modules/wlcore.ko #For Kernel backports
 
 # Backward compatibility
+    symlink /dev /dev/netmux
     symlink /dev/ttyGS0 /dev/acm0
     symlink /dev/hp3a-omap /dev/hp3A-omap
 
@@ -97,6 +121,22 @@ on post-fs
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
 
+# following two dirs are for storing BP Flex and PDS files. NVM Daemon is using these folders
+    mkdir /data/bp_nvm
+    chown radio radio /data/bp_nvm
+    chmod 0770 /data/bp_nvm
+    mkdir /pds/bp_nvm
+    chown radio radio /pds/bp_nvm
+    chmod 0770 /pds/bp_nvm
+
+# create logger folder
+    mkdir /data/logger 0770 radio log
+    chown radio log /data/logger
+    chmod 0770 /data/logger
+    mkdir /data/panicreports
+    chown root radio /data/panicreports
+    chmod 0777 /data/panicreports
+
 # Tweaks
     # DSS - disable tearing elimination
     write /sys/devices/omapdss/display0/tear_elim 0  
@@ -109,7 +149,10 @@ on post-fs-data
 
 # Create basic filesystem structure
     mkdir /pds/security 0770 system system
-    mkdir /data/location 0771 radio system 
+    mkdir /data/bp_nvm
+    mkdir /data/gki 0770 radio radio
+    mkdir /tmp/commdrv 0770 radio radio
+    mkdir /data/location 0771 radio system
     mkdir /data/tpapi 0770 system system
     mkdir /data/tpapi/etc 0770 system system
     mkdir /data/tpapi/etc/tpa 0770 system system
@@ -123,6 +166,11 @@ on post-fs-data
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     mkdir /data/local/hwui.deny
     mkdir /data/misc/hcid 0770 bluetooth bluetooth
+    # create opprof directory
+    mkdir /data/opprof 0770 radio shell
+
+    chown radio radio /data/bp_nvm
+    chmod 0770 /data/bp_nvm
 
     chown system shell /pds/public
     chown root system /data/tmp/battd
@@ -323,8 +371,8 @@ service ftmipcd /system/bin/ftmipcd
 on property:dev.bootcomplete=1
     start savebpver
 
-#service mdm_panicd /system/bin/mdm_panicd
-#    oneshot
+service mdm_panicd /system/bin/mdm_panicd
+    oneshot
 
 #get BP version and save to misc
 service savebpver /system/bin/SaveBPVer
