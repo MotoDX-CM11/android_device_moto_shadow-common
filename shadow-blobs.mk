@@ -32,7 +32,6 @@ PRODUCT_COPY_FILES += \
 	$(device_path)/prebuilt/usr/keychars/cpcap-key.kcm:system/usr/keychars/cpcap-key.kcm \
 
 PRODUCT_COPY_FILES += \
-	${device_path}/prebuilt/bin/handle_bp_panic.sh:system/bin/handle_bp_panic.sh \
 	$(device_path)/prebuilt/etc/init.d/08backlight:system/etc/init.d/08backlight \
 	$(device_path)/prebuilt/etc/init.d/90multitouch:system/etc/init.d/90multitouch \
 	$(device_path)/prebuilt/etc/init.d/09overclock:system/etc/init.d/09overclock \
