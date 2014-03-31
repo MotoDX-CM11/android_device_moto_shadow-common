@@ -206,7 +206,7 @@
     <bool name="config_alwaysEnableLightSensor">true</bool>  -->
 
     <!-- The default iface on which to monitor data use -->
-    <string name="config_datause_iface">rmnet0</string>
+    <string name="config_datause_iface">ppp0</string>
 
     <!-- Boolean indicating if current platform supports quick switch-on/off of
          Bluetooth Module 
