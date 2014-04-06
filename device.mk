@@ -118,8 +118,8 @@ PRODUCT_PACKAGES += libOMX.TI.WBAMR.encode libOMX.TI.MP3.decode libOMX.TI.WBAMR.
 PRODUCT_PACKAGES += libOMX.TI.Video.Decoder libOMX.TI.Video.encoder
 PRODUCT_PACKAGES += libOMX.TI.JPEG.Encoder
 
-# Defy stuff !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-PRODUCT_PACKAGES += libfnc DefyParts MotoFM MotoFMService VoiceDialer
+# Droid X stuff
+PRODUCT_PACKAGES += libfnc DXParts MotoFM MotoFMService VoiceDialer
 
 # Core stuff
 PRODUCT_PACKAGES += charge_only_mode mot_boot_mode

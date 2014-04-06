@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dodatkowe ustawienia</string>
+
+    <string name="general_settings_title">Ustawienia ogólne</string>
+
+    <string name="charge_led_mode_title">Ustawienia diody LED</string>
+    <string name="charge_led_mode_summary">Dostosuj zachowanie diody powiadomień podczas ładowania</string>
+    <string name="charge_led_mode_white">Zielona LED</string>
+    <string name="charge_led_mode_rgb">Mieszana (czerwona/zielona)</string>
+    <string name="charge_led_mode_off">Wyłączona</string>
+
+    <string name="button_brightness_scale_title">Jasność przycisków</string>
+    <string name="button_brightness_scale_summary">Pozwala zmniejszać jasność przycisków, użyteczne zwłaszcza w przypadku używania ręcznej jasności</string>
+
+    <string name="touch_points_title">Multidotyk</string>
+    <string name="touch_points_summary">Dostosuj ilość punktów dotyku rejestrowanych przez ekran</string>
+    <string name="touch_point_entry_2points">2 punkty (domyślne)</string>
+    <string name="touch_point_entry_3points">3 punkty</string>
+    <string name="touch_point_entry_4points">4 punkty</string>
+    <string name="touch_point_entry_5points">5 punktów</string>
+    <string name="touch_point_entry_8points">8 punktów</string>
+    <string name="touch_point_entry_10points">10 punktów</string>
+
+    <string name="touch_point_warning_title">Uwaga</string>
+    <string name="touch_point_warning_message">Zwiększenie ilości punktów dotyku może zmniejszyć reaktywność ekranu.\nCzy na pewno chcesz zmienić te ustawienia?</string>
+
+    <string name="audio_settings_title">Ustawienia Audio</string>
+    <string name="audio_effects">Efekty audio i DSP</string>
+
+    <string name="other_settings_title">Inne ustawienia</string>
+    <string name="compass_calibrate">Kalibracja kompasu</string>
+</resources>
