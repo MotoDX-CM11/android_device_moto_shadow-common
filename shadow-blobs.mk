@@ -63,10 +63,6 @@ PRODUCT_COPY_FILES += \
     $(device_path)/prebuilt/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     ${device_path}/prebuilt/bin/wifical.sh:system/bin/wifical.sh \
 
-# Backup list system (addon.d)
-#PRODUCT_COPY_FILES += \
-	#${device_path}/releasetools/addon.d/60-baseband.sh:system/addon.d/60-baseband.sh \
-
 # copy all others kernel modules under the "modules" directory to system/lib/modules
 PRODUCT_COPY_FILES += $(shell test -d device/moto/shadow-common/modules/prebuilt && \
 	find device/moto/shadow-common/modules/prebuilt -name '*.ko' \

@@ -44,7 +44,7 @@
 #$(call add-clean-step, find $(OUT_DIR) -type f -name "IGTalkSession*" -print0 | xargs -0 rm -f)
 #$(call add-clean-step, rm -rf $(PRODUCT_OUT)/data/*)
 
-$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/DefyParts_intermediates)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/DXParts_intermediates)
 
 # For the sensors lib, its better to rebuild it on defy/defy+ switch
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/SHARED_LIBRARIES/sensors.shadow_intermediates)
