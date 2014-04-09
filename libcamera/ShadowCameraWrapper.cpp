@@ -348,7 +348,7 @@ ShadowCameraWrapper::setParameters(const CameraParameters& params)
     pars.remove("cam-mode");
 
     pars.getPreviewSize(&width, &height);
-    isWide = width == 848 && height == 480;
+    isWide = (width/height)>=1.5;
 
     if (isWide && !mVideoMode) {
         pars.setPreviewFrameRate(24);
