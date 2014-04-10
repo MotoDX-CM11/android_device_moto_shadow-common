@@ -348,7 +348,7 @@ ShadowCameraWrapper::setParameters(const CameraParameters& params)
     pars.remove("cam-mode");
 
     pars.getPreviewSize(&width, &height);
-    isWide = (width/height)>=1.5;
+    isWide = (float) (width/height) >= 1.5;
 
     if (isWide && !mVideoMode) {
         pars.setPreviewFrameRate(24);
@@ -407,6 +407,8 @@ ShadowCameraWrapper::getParameters() const
        could parse it, but it's likely not worth the hassle */
     float exposure = ret.getFloat("mot-exposure-offset");
     int exposureParam = (int) round(exposure * 3);
+    int width, height;
+    ret.getVideoSize(&width, &height);
 
     ret.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, exposureParam);
     ret.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "9");
@@ -416,7 +418,9 @@ ShadowCameraWrapper::getParameters() const
     //ret.set(CameraParameters::KEY_PREVIEW_FRAME_RATE, "24");
     ret.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(15000,30000)");
     ret.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "15000,30000");
-    //ret.set(CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "640x480");
+    if (!(width == 1280 && height == 720)) {
+        ret.set(CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "640x480");
+    }
     ret.set(CameraParameters::KEY_SUPPORTED_VIDEO_SIZES, "");
 
     ret.set("cam-mode", mVideoMode ? "1" : "0");
