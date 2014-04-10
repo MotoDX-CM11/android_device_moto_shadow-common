@@ -744,7 +744,7 @@ static void camera_release(struct camera_device * device)
         lcdev->clientData->release(lcdev->clientData);
         lcdev->clientData = NULL;
     }
-    lcdev->hwif->release();
+    //lcdev->hwif->release(); made in camera service
     lcdev->hwif.clear();
 }
 
