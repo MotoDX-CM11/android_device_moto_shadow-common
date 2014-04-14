@@ -31,6 +31,7 @@ on init
     chown root system /dev/i2c-2
     chown root root /dev/smodule
     chown root system /dev/ttyGS0
+    chown root system /dev/tcmd_driver
 
     chmod 0660 /dev/cpcap
     chmod 0660 /dev/cpcap_batt
@@ -40,6 +41,7 @@ on init
     chmod 0660 /dev/i2c-2
     chmod 0660 /dev/smodule
     chmod 0666 /dev/ttyGS0
+    chmod 0660 /dev/tcmd_driver
 
 on fs
 
@@ -258,6 +260,12 @@ service battd /system/bin/battd
     socket battdsock stream 660 root system
     user root
     group system 9001
+    oneshot
+
+service tcmd /system/bin/tcmd
+    group radio input system log camera graphics sdcard_rw audio inet #bluetooth wifi compass
+    socket local_tcmd stream 0660 system system
+    socket batch_socket stream 0600 system system
     oneshot
 
 # Ecompass daemon
