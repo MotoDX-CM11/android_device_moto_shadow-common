@@ -103,8 +103,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 
 PRODUCT_PACKAGES += \
-	com.android.future.usb.accessory \
-	hwcomposer.default
+	com.android.future.usb.accessory
 
 # ICS sound
 PRODUCT_PACKAGES += \
