@@ -106,6 +106,11 @@ on post-fs
 # Configure kernel options
     # Disable automatic power control for OHCI USB IPC Temporarily
     write /sys/devices/platform/ohci.0/usb1/1-3/power/level auto
+    # Enable automatic power control for EHCI USB IPC
+    write /sys/devices/platform/ehci-omap.0/usb1/power/level auto
+    write /sys/devices/platform/ehci-omap.0/usb1/power/autosuspend 0
+    write /sys/devices/platform/ehci-omap.0/usb1/1-3/power/level auto
+    write /sys/devices/platform/ehci-omap.0/usb1/1-3/power/autosuspend 0
     # Power Management
     write /sys/power/sr_vdd1_autocomp 1
     write /sys/power/sr_vdd2_autocomp 1
@@ -263,10 +268,11 @@ service battd /system/bin/battd
     oneshot
 
 service tcmd /system/bin/tcmd
-    group radio input system log camera graphics sdcard_rw audio inet #bluetooth wifi compass
-    socket local_tcmd stream 0660 system system
-    socket batch_socket stream 0600 system system
+    class main
     oneshot
+    socket local_tcmd stream 0660 root root
+    socket batch_socket stream 0600 root root
+    disabled
 
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
@@ -364,6 +370,11 @@ service pppd /system/bin/pppd silent ipparam dun plugin \
     user root
     disabled
     oneshot
+
+service locDrv /system/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
+    class main
+    user radio
+    group radio inet sdcard_rw
 
 service fmradio /system/bin/fmradioserver
     class main
