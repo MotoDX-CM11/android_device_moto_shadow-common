@@ -70,7 +70,6 @@ on post-fs
 
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
-    insmod /system/lib/modules/modem_pm_driver.ko
 
 # Load Bluetooth drivers 
 #    insmod /system/lib/modules/bluetooth.ko
@@ -175,6 +174,9 @@ on post-fs-data
     mkdir /data/misc/hcid 0770 bluetooth bluetooth
     # create opprof directory
     mkdir /data/opprof 0770 radio shell
+    # Create anr directory and change permission to 777 to save trace.txt
+    mkdir /data/anr
+    chmod 0777 /data/anr
 
     chown radio radio /data/bp_nvm
     chmod 0770 /data/bp_nvm
@@ -195,6 +197,9 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
 on boot
+
+    # Define the BLAN interface
+    setprop ro.blan.interface usb0
 
     # Change the ownership of led files.
     chown system system /sys/class/leds/lcd-backlight/als
