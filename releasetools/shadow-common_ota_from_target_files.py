@@ -5,12 +5,16 @@ def InstallEnd_SetBootstrapPermissions(self, *args, **kwargs):
 
 def FullOTA_InstallBegin(self, *args, **kwargs):
   self.script.AppendExtra('run_program("/sbin/tune2fs", "-O has_journal /dev/block/mmcblk1p22");')
+  self.script.AppendExtra('run_program("/sbin/tune2fs", "-O has_journal /dev/block/mmcblk1p23");')
   self.script.AppendExtra('run_program("/sbin/tune2fs", "-O has_journal /dev/block/mmcblk1p24");')
 
 def FullOTA_InstallEnd(self, *args, **kwargs):
   self.script.Print("Wiping cache...")
   self.script.Mount("/cache")
   self.script.AppendExtra('delete_recursive("/cache");')
+  self.script.Print("Wiping preinstall...")
+  self.script.Mount("/preinstall")
+  self.script.AppendExtra('delete_recursive("/preinstall");')
   self.script.Print("Wiping dalvik-cache...")
   self.script.Mount("/data")
   self.script.AppendExtra('delete_recursive("/data/dalvik-cache");')
