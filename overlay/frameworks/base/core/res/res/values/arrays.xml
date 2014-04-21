@@ -33,8 +33,4 @@
         <item>bootloader</item>
     </string-array>
 
-    <string-array name="config_vendorServices">
-        <item>/system/framework/com.motorola.android.location.jar:com.android.server.LocationProxyService</item>
-    </string-array>
-
 </resources>
