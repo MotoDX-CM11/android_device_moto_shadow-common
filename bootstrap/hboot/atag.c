@@ -47,13 +47,13 @@ void *atag_build()
 	/* Add special MBM and MBMLOADER versions ATAGs */
 	tag->hdr.tag = ATAG_MBM_VERSION;
 	tag->hdr.size = tag_size(tag_mbm_version);
-	tag->u.mbm_version.mbm_version = 0x1234;
+	tag->u.mbm_version.mbm_version = 0x3004;
 	printf("MBM Version: 0x%04x\n", tag->u.mbm_version.mbm_version);
 	tag = tag_next(tag);
 	
 	tag->hdr.tag = ATAG_MBM_LOADER_VERSION;
 	tag->hdr.size = tag_size(tag_mbm_loader_version);
-	tag->u.mbm_loader_version.mbm_loader_version = 0x1234;
+	tag->u.mbm_loader_version.mbm_loader_version = 0x3004;
 	printf("MBMLOADER Version: 0x%04x\n", tag->u.mbm_loader_version.mbm_loader_version);
 	tag = tag_next(tag);
 
