@@ -298,14 +298,14 @@ void SensorAK8973::processEvent(int code, int value)
             // 0 to 359°:  0=North, 90=East, 180=South, 270=West (like a compass)
             converted = value * AK8973_CONVERT_O_A; //0 to 0x59FF -> x/64
             if (converted > 359.98f) converted = 0;
-            mPendingEvents[Orientation].orientation.azimuth = 359.98f - converted;
+            mPendingEvents[Orientation].orientation.azimuth = converted;
             ALOGV(TAG ": orientation X event value=0x%x (%.1f)", value, converted);
             break;
         case ABS_RY:
             mPendingMask |= 1 << Orientation;
             // -180 to 180°: lcd on upside or downside (0° on a flat table)
             converted = value * AK8973_CONVERT_O_P;
-            mPendingEvents[Orientation].orientation.pitch = - converted;
+            mPendingEvents[Orientation].orientation.pitch = converted;
             ALOGV(TAG ": orientation Y event value=0x%x (%.1f)", value, converted);
             break;
         case ABS_RZ:
