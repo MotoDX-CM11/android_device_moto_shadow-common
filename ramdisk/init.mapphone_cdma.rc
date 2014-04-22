@@ -106,10 +106,8 @@ on post-fs
     # Disable automatic power control for OHCI USB IPC Temporarily
     write /sys/devices/platform/ohci.0/usb1/1-3/power/level auto
     # Enable automatic power control for EHCI USB IPC
-    write /sys/devices/platform/ehci-omap.0/usb1/power/level auto
-    write /sys/devices/platform/ehci-omap.0/usb1/power/autosuspend 0
-    write /sys/devices/platform/ehci-omap.0/usb1/1-3/power/level auto
-    write /sys/devices/platform/ehci-omap.0/usb1/1-3/power/autosuspend 0
+    write /sys/devices/platform/musb_hdrc/usb2/power/level auto
+    write /sys/devices/platform/musb_hdrc/usb2/power/autosuspend 0
     # Power Management
     write /sys/power/sr_vdd1_autocomp 1
     write /sys/power/sr_vdd2_autocomp 1
