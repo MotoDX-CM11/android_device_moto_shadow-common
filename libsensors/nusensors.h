@@ -65,17 +65,6 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 #define CM_DEVICE_NAME      "/dev/sfh7743"
 #define LS_DEVICE_NAME      "/dev"
 
-#define EVENT_TYPE_YAW              ABS_RX
-#define EVENT_TYPE_PITCH            ABS_RY
-#define EVENT_TYPE_ROLL             ABS_RZ
-#define EVENT_TYPE_ORIENT_STATUS    ABS_RUDDER
-
-#define EVENT_TYPE_MAGV_X           ABS_HAT0X
-#define EVENT_TYPE_MAGV_Y           ABS_HAT0Y
-#define EVENT_TYPE_MAGV_Z           ABS_BRAKE
-
-#define EVENT_TYPE_TEMPERATURE      ABS_THROTTLE
-#define EVENT_TYPE_STEP_COUNT       ABS_GAS
 #define EVENT_TYPE_PROXIMITY        ABS_DISTANCE
 #define EVENT_TYPE_LIGHT            LED_MISC // led sensor 1
 #define EVENT_TYPE_LIGHT2           MSC_RAW  // led sensor 2
@@ -108,7 +97,7 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 #define AK8973_CONVERT_O_P                 (AK8973_CONVERT_O)
 #define AK8973_CONVERT_O_R                 (-AK8973_CONVERT_O)
 
-#define AK8973_SENSOR_STATE_MASK           (0x3)
+#define AK8973_SENSOR_STATE_MASK           (0x7FFF)
 
 /*****************************************************************************/
 

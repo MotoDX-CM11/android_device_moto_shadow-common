@@ -66,12 +66,12 @@ static const struct sensor_t sSensorList[] = {
     { "AK8973 3-axis Orientation Sensor",
         "Asahi Kasei",
         1, SENSORS_HANDLE_BASE + SENSOR_TYPE_ORIENTATION, SENSOR_TYPE_ORIENTATION,
-        360.0f, AK8973_CONVERT_O, 7.0f, 0, 0, 0, { }  },
+        360.0f, AK8973_CONVERT_O, 7.0f, 0, 0, 0, { } },
 
     { "AK8973 3-axis Magnetic Field Sensor",
         "Asahi Kasei",
         1, SENSORS_HANDLE_BASE + SENSOR_TYPE_MAGNETIC_FIELD, SENSOR_TYPE_MAGNETIC_FIELD,
-        360.0f, AK8973_CONVERT_M, 4.0f, MS_50, 0, 0, { } }, // can use more power because values are unstables (cpu)
+        2000.0f, AK8973_CONVERT_M, 6.8f, MS_50, 0, 0, { } },
 
     { "AK8973 Temperature Sensor",
         "Asahi Kasei",
