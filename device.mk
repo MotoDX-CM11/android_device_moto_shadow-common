@@ -17,19 +17,13 @@
 #
 # This is the product configuration for a generic Motorola Droid X (shadow)
 #
-
-# The gps/telephony config appropriate for this device
+# Inherit from those products. Most specific first.
+$(call inherit-product, device/moto/shadow-common/bootstrap/bootstrap.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/telephony.mk)	
 # Blobs and bootmenu stuff
 $(call inherit-product, device/moto/shadow-common/shadow-blobs.mk)
-$(call inherit-product, device/moto/shadow-common/bootstrap/bootstrap.mk)
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
-# Get some sounds
-$(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
-# Get everything else from the parent package
-$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
-
 ifeq ($(TARGET_PRODUCT),$(filter $(TARGET_PRODUCT),cm_shadow))
 $(call inherit-product, vendor/motorola/shadow-common/shadow-vendor.mk)
 endif
