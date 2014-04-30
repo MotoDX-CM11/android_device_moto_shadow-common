@@ -19,7 +19,6 @@
 /dev/android_adb_enable   0660   adb        adb
 /dev/ttyGS0               0660   root       system
 /dev/ttyACM0              0770   root       radio
-/dev/ttyHS0               0660   root       system
 /dev/uinput               0660   system     bluetooth
 /dev/alarm                0664   system     radio
 /dev/tty0                 0660   root       system
@@ -34,7 +33,6 @@
 
 # CDMA radio interface MUX
 /dev/ts0710mux*           0660   radio      radio
-/dev/ttyHS4/*             0640   radio      radio
 /dev/ppp                  0660   radio      vpn
 /dev/tun                  0640   vpn        vpn
 

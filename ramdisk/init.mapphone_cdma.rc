@@ -22,27 +22,6 @@ on init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
-    # Temporary fix permissions for gb kernel
-    chown root system /dev/cpcap
-    chown root system /dev/cpcap_batt
-    chown root system /dev/cpcap_mot_rtc
-    chown root system /dev/cpcap_uc
-    chown root system /dev/i2c-1
-    chown root system /dev/i2c-2
-    chown root root /dev/smodule
-    chown root system /dev/ttyGS0
-    chown root system /dev/tcmd_driver
-
-    chmod 0660 /dev/cpcap
-    chmod 0660 /dev/cpcap_batt
-    chmod 0660 /dev/cpcap_mot_rtc
-    chmod 0660 /dev/cpcap_uc
-    chmod 0660 /dev/i2c-1
-    chmod 0660 /dev/i2c-2
-    chmod 0660 /dev/smodule
-    chmod 0666 /dev/ttyGS0
-    chmod 0660 /dev/tcmd_driver
-
 on fs
 
 # Mount mmc partitions
@@ -270,13 +249,6 @@ service battd /system/bin/battd
     group system 9001
     oneshot
 
-service tcmd /system/bin/tcmd
-    class main
-    oneshot
-    socket local_tcmd stream 0660 root root
-    socket batch_socket stream 0600 root root
-    disabled
-
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
     class main
@@ -373,11 +345,6 @@ service pppd /system/bin/pppd silent ipparam dun plugin \
     user root
     disabled
     oneshot
-
-service locDrv /system/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
-    class main
-    user radio
-    group radio inet sdcard_rw
 
 service fmradio /system/bin/fmradioserver
     class main
