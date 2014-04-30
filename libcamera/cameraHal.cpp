@@ -199,37 +199,50 @@ static void Yuv422iToRgb565(char* rgb, char* yuv422i, int width, int height, int
     }
 }
 
-static void Yuv422iToYV12 (unsigned char* dest, unsigned char* src, int width, int height)
+/* derived from v4l lib */
+static void Yuv422iToYV12 (unsigned char* dest, unsigned char* src, int width, int height, int stride)
 {
-    //convert YUV422I to YUV420 NV12 format.
-    unsigned char *dst_y = dest;
-    unsigned char *dst_uv = dest + (width * height);
+    unsigned int i, j;
+    unsigned int paddingY = stride - width;
+    unsigned int paddingC = paddingY / 2;
+    unsigned int doubleWidth = width * 2;
+    unsigned char *src1 = src;
+    unsigned char *udest, *vdest;
 
-        //neon conversion
-        for(int i = 0; i < height; i++) {
-            int n = width;
-            int skip = i & 0x1;       // skip uv elements for the odd rows
-            asm volatile (
-                "   pld [%[src], %[src_stride], lsl #2]                         \n\t"
-                "   cmp %[n], #16                                               \n\t"
-                "   blt 5f                                                      \n\t"
-                "0: @ 16 pixel copy                                             \n\t"
-                "   vld2.8  {q0, q1} , [%[src]]! @ q0 = yyyy.. q1 = uvuv..      \n\t"
-                "                                @ now q0 = y q1 = uv           \n\t"
-                "   vst1.32   {d0,d1}, [%[dst_y]]!                              \n\t"
-                "   cmp    %[skip], #0                                          \n\t"
-                "   bne 1f                                                      \n\t"
-                "   vst1.32  {d2,d3},[%[dst_uv]]!                               \n\t"
-                "1: @ skip odd rows for UV                                      \n\t"
-                "   sub %[n], %[n], #16                                         \n\t"
-                "   cmp %[n], #16                                               \n\t"
-                "   bge 0b                                                      \n\t"
-                "5: @ end                                                       \n\t"
-                : [dst_y] "+r" (dst_y), [dst_uv] "+r" (dst_uv), [src] "+r" (src), [n] "+r" (n)
-                : [src_stride] "r" (width), [skip] "r" (skip)
-                : "cc", "memory", "q0", "q1", "q2", "d0", "d1", "d2", "d3"
-            );
+    /* copy the Y values */
+    for (i = height; i != 0; i--) {
+        for (j = width; j != 0; j -= 2) {
+            *dest++ = src1[0];
+            *dest++ = src1[2];
+            src1 += 4;
         }
+        dest += paddingY;
+    }
+
+    /* copy the U and V values */
+    vdest = dest;
+    udest = vdest + stride * height / 4;
+
+    for (i = height; i != 0; i -= 2) {
+        for (j = width; j != 0; j -= 2) {
+        /*
+           For the conversion from YUV 422 to 420 to be correct,
+           the U and V values should be calculated as an average.
+           But for the preview purpose, we need efficiency more
+           than accuracy. Using just the first of the two values
+           looks good enough and the speed-up of the conversion
+           is significant enough to justify such simplification.
+        */
+//Fix camera colors. Picked from mielstone2 repo.
+            *udest++ = src[3];
+            *vdest++ = src[1];
+//
+            src += 4;
+        }
+        src += doubleWidth;
+        udest += paddingC;
+        vdest += paddingC;
+    }
 }
 
 static void processPreviewData(char *frame, size_t size, legacy_camera_device *lcdev, Overlay::Format format)
@@ -281,7 +294,7 @@ static void processPreviewData(char *frame, size_t size, legacy_camera_device *l
         // The data we get is in YUV... but Window is RGB565. It needs to be converted
         switch (format) {
             case Overlay::FORMAT_YUV422I:
-                Yuv422iToYV12((unsigned char*)vaddr, (unsigned char*)frame, lcdev->previewWidth, lcdev->previewHeight);
+                Yuv422iToYV12((unsigned char*)vaddr, (unsigned char*)frame, lcdev->previewWidth, lcdev->previewHeight, stride);
                 break;
             case Overlay::FORMAT_YUV420SP:
                 memcpy(vaddr, frame, lcdev->previewWidth * lcdev->previewHeight * 1.5);
