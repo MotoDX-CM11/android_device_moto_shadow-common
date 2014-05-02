@@ -45,7 +45,7 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 /*****************************************************************************/
 
 /*
- * The Defy has two accelerometers in hardware (KXTF9 and AK8973). We use
+ * The Droid X has two accelerometers in hardware (KXTF9 and AK8973). We use
  * the KXTF9 one for higher precision.
  */
 #define USE_KXTF9_ACCELEROMETER
@@ -97,7 +97,7 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 #define AK8973_CONVERT_O_P                 (AK8973_CONVERT_O)
 #define AK8973_CONVERT_O_R                 (-AK8973_CONVERT_O)
 
-#define AK8973_SENSOR_STATE_MASK           (0x7FFF)
+#define AK8973_SENSOR_STATE_MASK           (0x3)
 
 /*****************************************************************************/
 
