@@ -883,4 +883,3 @@ camera_module_t HAL_MODULE_INFO_SYM = {
     get_number_of_cameras: android::get_number_of_cameras,
     get_camera_info: android::get_camera_info,
 };
-
