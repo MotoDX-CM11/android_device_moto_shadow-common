@@ -50,7 +50,7 @@ SensorAK8973::SensorAK8973() : SensorBase(AK8973_DEVICE_NAME, "compass"),
     mPendingEvents[MagneticField].version = sizeof(sensors_event_t);
     mPendingEvents[MagneticField].sensor = SENSOR_TYPE_MAGNETIC_FIELD;
     mPendingEvents[MagneticField].type = SENSOR_TYPE_MAGNETIC_FIELD;
-    mPendingEvents[MagneticField].magnetic.status = SENSOR_STATUS_ACCURACY_MEDIUM;
+    mPendingEvents[MagneticField].magnetic.status = SENSOR_STATUS_ACCURACY_HIGH;
 
     mPendingEvents[Orientation].version = sizeof(sensors_event_t);
     mPendingEvents[Orientation].sensor = SENSOR_TYPE_ORIENTATION;
