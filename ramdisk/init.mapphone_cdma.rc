@@ -31,6 +31,10 @@ on fs
     mount_all ./fstab.mapphone_cdma
     #swapon_all /fstab.mapphone_cdma # For enable zRam
 
+    mount ext3 /dev/block/mmcblk1p23 /system/lib nosuid nodev noatime nodiratime barrier=1
+    chmod 0755 /system/lib
+    chown root root /system/lib
+
     mkdir /pds 0775 system system
     exec /system/bootstrap/script/pdsbackup.sh
 

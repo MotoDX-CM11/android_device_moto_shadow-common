@@ -12,9 +12,6 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
   self.script.Print("Wiping cache...")
   self.script.Mount("/cache")
   self.script.AppendExtra('delete_recursive("/cache");')
-  self.script.Print("Wiping preinstall...")
-  self.script.Mount("/preinstall")
-  self.script.AppendExtra('delete_recursive("/preinstall");')
   self.script.Print("Wiping dalvik-cache...")
   self.script.Mount("/data")
   self.script.AppendExtra('delete_recursive("/data/dalvik-cache");')
@@ -36,6 +33,8 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
   self.script.ShowProgress(0.2, 0)
 
   self.script.Print("Finished installing KitKat for OMAP3 devices, Enjoy!")
+
+  self.script.AppendExtra('unmount("/system/lib");')
 
 def FullOTA_DisableBootImageInstallation(self, *args, **kwargs):
   return True
