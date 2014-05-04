@@ -10,18 +10,18 @@ key 9     8                 WAKE_DROPPED
 key 10    9                 WAKE_DROPPED
 key 11    0                 WAKE_DROPPED
 key 1     BACK              WAKE_DROPPED
-key 158   BACK              WAKE_DROPPED
+key 158   BACK
 key 230   SOFT_RIGHT        WAKE
 key 60    SOFT_RIGHT        WAKE
 key 107   ENDCALL           WAKE_DROPPED
 key 62    ENDCALL           WAKE_DROPPED
 key 126   MENU              WAKE_DROPPED
 key 229   MENU              WAKE_DROPPED
-key 139   MENU              WAKE_DROPPED
+key 139   MENU
 key 125   MENU              WAKE_DROPPED
 key 59    MENU              WAKE_DROPPED
 key 127   SEARCH            WAKE_DROPPED
-key 217   SEARCH            WAKE_DROPPED
+key 217   SEARCH
 key 228   POUND             WAKE_DROPPED
 key 227   STAR              WAKE_DROPPED
 key 231   CALL              WAKE_DROPPED
@@ -36,7 +36,7 @@ key 115   VOLUME_UP         WAKE_DROPPED
 key 114   VOLUME_DOWN       WAKE_DROPPED
 key 116   POWER             WAKE
 key 211   FOCUS
-key 212   CAMERA            WAKE_DROPPED
+key 212   CAMERA
 
 key 16    Q                 WAKE_DROPPED
 key 17    W                 WAKE_DROPPED
