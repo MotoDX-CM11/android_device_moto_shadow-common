@@ -76,6 +76,18 @@
         <item>7</item>
     </integer-array>
 
+    <!-- If the DUN connection for this CDMA device supports more than just DUN -->
+    <!-- traffic you should list them here. -->
+    <!-- If this device is not CDMA this is ignored.  If this list is empty on -->
+    <!-- a DUN-requireing CDMA device, the DUN APN will support -->
+    <!-- just DUN. -->
+    <string-array translatable="false" name="config_cdma_dun_supported_types">
+        <item>"default"</item>
+        <item>"dun"</item>
+        <item>"mms"</item>
+        <item>"supl</item>
+    </string-array>
+
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
