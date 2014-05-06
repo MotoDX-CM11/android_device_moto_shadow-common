@@ -418,7 +418,7 @@ ShadowCameraWrapper::getParameters() const
     //ret.set(CameraParameters::KEY_PREVIEW_FRAME_RATE, "24");
     ret.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(15000,30000)");
     ret.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "15000,30000");
-    if (!(width == 1280 && height == 720)) {
+    if (width == 320) {
         ret.set(CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "640x480");
     }
     ret.set(CameraParameters::KEY_SUPPORTED_VIDEO_SIZES, "");
