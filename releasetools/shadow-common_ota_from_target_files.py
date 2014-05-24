@@ -39,6 +39,9 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
 def FullOTA_DisableBootImageInstallation(self, *args, **kwargs):
   return True
 
+def FullOTA_DisableRecoveryUpdate(self, *args, **kwargs):
+  return True
+
 def FullOTA_FormatSystemPartition(self, *args, **kwargs):
   self.script.Mount("/system")
   self.script.AppendExtra('delete_recursive("/system");')
@@ -46,8 +49,5 @@ def FullOTA_FormatSystemPartition(self, *args, **kwargs):
   # returning true skips formatting /system!
   return True
 
-def IncrementalOTA_DisableRecoveryUpdate(self, *args, **kwargs):
-  return True
-
 def IncrementalOTA_InstallEnd(self, *args, **kwargs):
-  InstallEnd_SetBootstrapPermissions(self, args, kwargs)
+  InstallEnd_SetSpecificDeviceConfigs(self, args, kwargs)
