@@ -237,13 +237,11 @@ on boot
 
     # Charge only mode services.
     exec /system/bin/mot_boot_mode
-    class_start charger
 
-on charger
 on property:sys.chargeonly.mode=1
     class_reset main
     class_reset late_start
-    start charge
+    class_start charger
     start battd
 
 
@@ -254,12 +252,13 @@ service uim /system/bin/uim-sysfs
     oneshot
 
 service charge /system/bin/charge_only_mode
+    class charger
     group root
     oneshot
     disabled
 
 service battd /system/bin/battd
-    class charger
+    class core
     socket battdsock stream 660 root system
     user root
     group system 9001
