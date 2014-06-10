@@ -257,7 +257,6 @@ service charge /system/bin/charge_only_mode
     class charger
     group root
     oneshot
-    disabled
 
 service battd /system/bin/battd
     class core
