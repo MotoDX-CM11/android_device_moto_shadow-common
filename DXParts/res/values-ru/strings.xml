@@ -6,9 +6,12 @@
 
     <string name="charge_led_mode_title">Цвет индикатора зарядки</string>
     <string name="charge_led_mode_summary">Задать цвет светодиода при зарядке</string>
-    <string name="charge_led_mode_white">Белый</string>
+    <string name="charge_led_mode_white">Зеленый</string>
     <string name="charge_led_mode_rgb">Смешанный цвет (красный+зеленый)</string>
     <string name="charge_led_mode_off">Отключить</string>
+
+    <string name="button_brightness_scale_title">Подсветка клавиш</string>
+    <string name="button_brightness_scale_summary">Позволяет изменить яркость подсветки клавиш, особенно актуально когда используется ручная регулировка подсветки</string>
 
     <string name="touch_points_title">Мультитач</string>
     <string name="touch_points_summary">Задать максимальное число одновременных нажатий</string>
