@@ -119,7 +119,7 @@ PRODUCT_PACKAGES += \
 
 # Legacy sound
 PRODUCT_PACKAGES += \
-	libaudioutils audio.a2dp.default  \
+	libaudioutils audio.a2dp.default audio.r_submix.default \
 	libaudiohw_legacy \
 
 # OMX stuff
