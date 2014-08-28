@@ -1,7 +1,0 @@
-0x00000000	PVRGetDisplayClassJTable2	/home/mksy/cm11/device/moto/shadow-common/modules/pvr/pvrsrvkm	EXPORT_SYMBOL
-0x00000000	lookup_symbol_address	/home/mksy/cm11/device/moto/shadow-common/modules/sources/symsearch/symsearch	EXPORT_SYMBOL
-0x00000000	cpufreq_stats_freq_update	/home/mksy/cm11/device/moto/shadow-common/modules/sources/overclock/cpufreq_stats	EXPORT_SYMBOL
-0x00000000	PVRGetBufferClassJTable2	/home/mksy/cm11/device/moto/shadow-common/modules/pvr/pvrsrvkm	EXPORT_SYMBOL
-0x00000000	qtaguid_get_debug_mask	/home/mksy/cm11/device/moto/shadow-common/modules/netfilter/xt_owner2	EXPORT_SYMBOL
-0x00000000	capcap_dumpnames	/home/mksy/cm11/device/moto/shadow-common/modules/logcap/logcap	EXPORT_SYMBOL
-0x00000000	capcap_regname	/home/mksy/cm11/device/moto/shadow-common/modules/logcap/logcap	EXPORT_SYMBOL
