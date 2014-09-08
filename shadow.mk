@@ -60,7 +60,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # telephony props
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.telephony.call_ring.multiple=false \
-	ro.telephony.call_ring.delay=500 \
+	ro.telephony.call_ring.delay=50 \
 	ro.telephony.default_network=4 \
 	mobiledata.interfaces=ppp0 \
 	persist.ril.mux.retries=500 \
