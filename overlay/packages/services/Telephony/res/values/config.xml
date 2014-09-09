@@ -22,6 +22,4 @@
          just let the radio/BP handle playing of the tones. -->
     <bool name="allow_local_dtmf_tones">true</bool>
 
-    <string name="voice_quality_param">motoVoiceQualityConfig</string>
-
 </resources>
