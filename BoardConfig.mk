@@ -30,7 +30,7 @@ TARGET_NO_PREINSTALL := true
 
 TARGET_BOOTLOADER_BOARD_NAME := shadow
 
-DISABLE_DEXPREOPT =: false
+WITH_DEXPREOPT := true
 
 # Board properties
 TARGET_ARCH := arm
