@@ -1,12 +1,17 @@
-def InstallEnd_SetBootstrapPermissions(self, *args, **kwargs):
-  self.script.SetPermissionsRecursive("/system/bootstrap/config", 0, 0, 0755, 0664, None, None)
-  self.script.SetPermissionsRecursive("/system/bootstrap/binary", 0, 0, 0755, 0755, None, None)
-  self.script.SetPermissionsRecursive("/system/bootstrap/script", 0, 0, 0755, 0755, None, None)
+def InstallEnd_SetSpecificDeviceConfigs(self, *args, **kwargs):
+  # Fix Scripts permissions
+  self.script.Mount("/bootstrap")
+  self.script.SetPermissionsRecursive("/bootstrap/config", 0, 0, 0755, 0664, None, None)
+  self.script.SetPermissionsRecursive("/bootstrap/binary", 0, 0, 0755, 0755, None, None)
+  self.script.SetPermissionsRecursive("/bootstrap/script", 0, 0, 0755, 0755, None, None)
+  self.script.SetPermissions("/bootstrap/bin/logwrapper", 0, 0, 0755, None, None)
+  self.script.UnpackPackageDir("system/bootstrap", "/bootstrap/bootstrap");
+  self.script.AppendExtra('package_extract_file("system/bin/logwrapper", "/bootstrap/bin/logwrapper");')
+  self.script.Unmount("/bootstrap");
 
 def FullOTA_InstallBegin(self, *args, **kwargs):
-  self.script.AppendExtra('run_program("/sbin/tune2fs", "-O has_journal /dev/block/mmcblk1p22");')
-  self.script.AppendExtra('run_program("/sbin/tune2fs", "-O has_journal /dev/block/mmcblk1p23");')
-  self.script.AppendExtra('run_program("/sbin/tune2fs", "-O has_journal /dev/block/mmcblk1p24");')
+  self.script.AppendExtra('ifelse((run_program("/sbin/busybox", "ls", "/dev/block/mmcblk1p21") == "0"),  abort("Please resize partition before install CM11.0!"), ui_print("Compatible bootstrap! We can continue!"));')
+  self.script.Print("Start install CM-11.0...")
 
 def FullOTA_InstallEnd(self, *args, **kwargs):
   self.script.Print("Wiping cache...")
@@ -33,8 +38,6 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
   self.script.ShowProgress(0.2, 0)
 
   self.script.Print("Finished installing KitKat for OMAP3 devices, Enjoy!")
-
-  self.script.AppendExtra('unmount("/system/lib");')
 
 def FullOTA_DisableBootImageInstallation(self, *args, **kwargs):
   return True

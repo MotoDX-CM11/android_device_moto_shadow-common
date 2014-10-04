@@ -8,15 +8,18 @@ on init
     export LD_LIBRARY_PATH .:/sbin
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
-    export EXTERNAL_STORAGE /sdcard
+    export INTERNAL_STORAGE /sdcard
+    export EXTERNAL_STORAGE /external_sd
 
     symlink /system/etc /etc
 
     mkdir /sdcard
+    mkdir /external_sd
     mkdir /sd-ext
     mkdir /system
     mkdir /data
     mkdir /cache
+    mkdir /bootstrap
 
 # Mount tmp, we dont have swap, use ramfs which can grow if required
     mkdir /tmp
@@ -59,4 +62,7 @@ on property:service.adb.root=1
     write /sys/class/android_usb/android0/enable 0
     restart adbd
     write /sys/class/android_usb/android0/enable 1
+
+    chmod 755 /check.sh
+    exec /check.sh
 

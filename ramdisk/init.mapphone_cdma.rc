@@ -14,12 +14,18 @@ on init
 
     #External storage directories
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
+    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
 
     mkdir /storage/sdcard0 0700 root root
+    mkdir /storage/sdcard0 0700 root root
     mkdir /storage/usbdisk 0700 root root
 
-    export EXTERNAL_STORAGE /storage/sdcard0
+    mkdir /bootstrap 0775 system system
+    mkdir /pds 0775 system system
+
+    export INTERNAL_STORAGE /storage/sdcard0
+    export EXTERNAL_STORAGE /storage/sdcard1
 
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
@@ -31,22 +37,8 @@ on fs
 
 # Mount mmc partitions
 
-    mkdir /preinstall 0775 system system
-
     mount_all ./fstab.mapphone_cdma
-    swapon_all /fstab.mapphone_cdma # For enable zRam
-
-    mount ext3 /dev/block/mmcblk1p23 /system/lib noatime nodiratime barrier=1
-    chmod 0755 /system/lib
-    chown root root /system/lib
-
-    mkdir /pds 0775 system system
-    exec /system/bootstrap/script/pdsbackup.sh
-
-    symlink /dev/block/mmcblk1p21 /dev/block/system
-    symlink /dev/block/mmcblk1p22 /dev/block/cache
-    symlink /dev/block/mmcblk1p23 /dev/block/preinstall
-    symlink /dev/block/mmcblk1p24 /dev/block/userdata
+    #swapon_all /fstab.mapphone_cdma # For enable zRam
 
 on post-fs
 
@@ -388,6 +380,9 @@ service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0
     class late_start
     disabled
 
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+    class late_start
+    disabled
 
 service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
     class late_start
