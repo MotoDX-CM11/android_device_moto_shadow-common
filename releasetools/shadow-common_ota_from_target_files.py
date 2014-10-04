@@ -1,4 +1,4 @@
-def InstallEnd_SetBootstrapPermissions(self, *args, **kwargs):
+def InstallEnd_SetSpecificDeviceConfigs(self, *args, **kwargs):
   self.script.SetPermissionsRecursive("/system/bootstrap/config", 0, 0, 0755, 0664, None, None)
   self.script.SetPermissionsRecursive("/system/bootstrap/binary", 0, 0, 0755, 0755, None, None)
   self.script.SetPermissionsRecursive("/system/bootstrap/script", 0, 0, 0755, 0755, None, None)
@@ -18,8 +18,8 @@ def FullOTA_InstallEnd(self, *args, **kwargs):
   self.script.Print("Wiping battd stats...")
   self.script.AppendExtra('delete_recursive("/data/battd");')
 
-# Bootstrap
-  InstallEnd_SetBootstrapPermissions(self, args, kwargs)
+# DeviceConfig
+  InstallEnd_SetSpecificDeviceConfigs(self, args, kwargs)
 
   self.script.SetPermissionsRecursive("/system/etc/init.d", 0, 0, 0755, 0555, None, None)
   self.script.SetPermissionsRecursive("/system/addon.d", 0, 0, 0755, 0755, None, None)
