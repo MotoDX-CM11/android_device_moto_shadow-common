@@ -13,19 +13,21 @@ on init
     mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
 
     #External storage directories
+    mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
 
-    mkdir /storage/sdcard0 0700 root root
+    mkdir /storage/emulated 0555 root root
     mkdir /storage/sdcard0 0700 root root
     mkdir /storage/usbdisk 0700 root root
 
     mkdir /bootstrap 0775 system system
     mkdir /pds 0775 system system
 
-    export INTERNAL_STORAGE /storage/sdcard0
-    export EXTERNAL_STORAGE /storage/sdcard1
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+    export SECONDARY_STORAGE /storage/sdcard0
 
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
@@ -34,6 +36,8 @@ on init
     symlink /storage/usbdisk /mnt/usbdisk
 
 on fs
+
+    setprop ro.crypto.fuse_sdcard true
 
 # Mount mmc partitions
 
@@ -68,8 +72,8 @@ on post-fs
     mount rootfs rootfs / rw remount
 
 # Mount cdrom
-    mkdir /cdrom 0770 system system
-    mount yaffs2 mtd@cdrom /cdrom ro
+#    mkdir /cdrom 0770 system system
+#    mount yaffs2 mtd@cdrom /cdrom ro
 
 # Mount tmp, we dont have swap, use ramfs which can grow if required
     mkdir /tmp
@@ -376,11 +380,10 @@ service savebpver /system/bin/SaveBPVer
     oneshot
 
 # FUSE sdcard daemon for rich permissions (runs as media_rw)
-service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
-    disabled
 
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
     class late_start
     disabled
 

@@ -216,7 +216,7 @@ hboot:
 TARGET_KERNEL_SOURCE := $(ANDROID_BUILD_TOP)/shadow-kernel
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 TARGET_KERNEL_MODULES_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilt/linux-x86/toolchain/$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-
-PARTITION_TABLE := blkdevparts=mmcblk1:51593216@44040192(root_system),140000@396221216(system_sign),657930240@95633409(system),51200000@753563650(cache),1342177280@804763650(data),4193792@3145728(pds),5797070000@2146940931(media)
+PARTITION_TABLE := blkdevparts=mmcblk1:51593216@44040192(root_system),140000@396221216(system_sign),657930240@95633409(system),51200000@753563650(cache),7139247280@804763650(data),4193792@3145728(pds)
 BOARD_KERNEL_CMDLINE := $(BOARD_RECOVERY_KERNEL_CMDLINE) panic=30 mmcparts=mmcblk1:p20(kpanic) cpcap_charger_enabled=n
 BOARD_RECOVERY_KERNEL_CMDLINE := console=/dev/null mem=500M init=/init omapfb.vram=0:4M usbcore.old_scheme_first=y cpcap_charger_enabled=y $(PARTITION_TABLE)
 BOARD_KERNEL_CMDLINE := console=/dev/null mem=500M init=/init omapfb.vram=0:4M usbcore.old_scheme_first=y cpcap_charger_enabled=n $(PARTITION_TABLE)
