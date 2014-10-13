@@ -39,8 +39,11 @@ $BB_STATIC echo "making node"
 $BB_STATIC mknod /dev/hbootctrl c `$BB_STATIC cat /proc/devices | $BB_STATIC grep hboot | $BB_STATIC awk '{print $1}' ` 0
 
 $BB_STATIC echo "starting hboot"
-if [[ "$1" = boot || "$1" = uart ]]; then
-./hbootuser ./hboot.cfg
-elif [[ "$1" = recovery ]]; then
+
+if [[ "$1" = recovery ]]; then
 ./hbootuser ./hboot_recovery.cfg
 fi
+if [[ "$1" = boot || "$1" = uart ]]; then
+./hbootuser ./hboot.cfg
+fi
+
