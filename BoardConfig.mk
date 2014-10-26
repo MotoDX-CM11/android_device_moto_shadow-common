@@ -30,7 +30,7 @@ TARGET_NO_PREINSTALL := true
 
 TARGET_BOOTLOADER_BOARD_NAME := shadow
 
-WITH_DEXPREOPT := true
+DISABLE_DEXPREOPT =: false
 
 # Board properties
 TARGET_ARCH := arm
@@ -114,7 +114,7 @@ BOARD_USE_CUSTOM_RECOVERY_FONT:= \"roboto_10x18.h\"
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
 TW_NO_BATT_PERCENT := false
-TW_NO_REBOOT_RECOVERY := true
+TW_NO_REBOOT_RECOVERY := false
 TW_NO_REBOOT_BOOTLOADER := true
 TW_ALWAYS_RMRF := false
 BOARD_UMS_LUNFILE := /sys/class/android_usb/f_mass_storage/lun/file
