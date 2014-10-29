@@ -61,6 +61,6 @@ on property:service.adb.root=1
     restart adbd
     write /sys/class/android_usb/android0/enable 1
 
-    chmod 755 /check.sh
-    exec /check.sh
+#    chmod 755 /check.sh
+#    exec /check.sh
 

@@ -8,8 +8,8 @@ PRODUCT_COPY_FILES += \
 	${bm_device}/ramdisk/init.usb.rc:root/init.usb.rc \
 	${bm_device}/ramdisk/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
 	${bm_device}/ramdisk/fstab.mapphone_cdma:root/fstab.mapphone_cdma \
-	${bm_device}/ramdisk/badblocks.txt:recovery/root/badblocks.txt \
-	${bm_device}/ramdisk/check.sh:recovery/root/check.sh \
+#	${bm_device}/ramdisk/badblocks.txt:recovery/root/badblocks.txt \
+#	${bm_device}/ramdisk/check.sh:recovery/root/check.sh \
 
 # prebuilt binaries
 PRODUCT_COPY_FILES += \
