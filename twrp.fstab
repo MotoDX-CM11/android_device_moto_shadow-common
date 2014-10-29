@@ -3,5 +3,5 @@
 /cache ext4 /dev/block/mmcblk1p4
 /data ext4 /dev/block/mmcblk1p5
 /system ext4 /dev/block/mmcblk1p3 flags=usermrf
-/bootstrap ext3 /dev/block/mmcblk1p1 flags=usermrf display="bootstrap"
+/bootstrap ext3 /dev/block/mmcblk1p1 flags=usermrf
 /sdcard auto /dev/block/mmcblk0p1 /dev/block/mmcblk0p2
