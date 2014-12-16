@@ -128,7 +128,7 @@ on post-fs
     # DSS - disable tearing elimination
     write /sys/devices/omapdss/display0/tear_elim 0  
     # GPU to 266mhz
-    # write /proc/gpu/max_rate 266666666
+    write /proc/gpu/max_rate 266666666
     # zRAM only read one page at a time
     write /proc/sys/vm/page-cluster 0
     # Set min free memory to 10240
