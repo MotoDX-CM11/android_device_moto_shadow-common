@@ -40,10 +40,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	hwui.use.blacklist=true \
 	ro.sf.lcd_density=240 \
 	dalvik.vm.debug.alloc=0 \
-	ro.setupwizard.enable_bypass=1 \
 	persist.sys.root_access=3 \
-	ro.config.low_ram=true  \
-	dalvik.vm.jit.codecachesize=0 \
 	ro.input.noresample=1 \
 #	cm.updater.uri=http://defy.cm-for.us/api \
 
@@ -60,7 +57,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # telephony props
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.telephony.call_ring.multiple=false \
-	ro.telephony.call_ring.delay=50 \
+	ro.telephony.call_ring.delay=30 \
 	ro.telephony.default_network=4 \
 	mobiledata.interfaces=ppp0 \
 	persist.ril.mux.retries=500 \
@@ -100,7 +97,8 @@ PRODUCT_PACKAGES += \
 
 # Legacy sound
 PRODUCT_PACKAGES += \
-	libaudioutils audio.a2dp.default audio.r_submix.default \
+	libaudioutils audio.a2dp.default \
+	audio.r_submix.default \
 	libaudiohw_legacy \
 
 # OMX stuff
